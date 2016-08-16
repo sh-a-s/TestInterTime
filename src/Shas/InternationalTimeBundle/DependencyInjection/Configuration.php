@@ -5,11 +5,6 @@ namespace Shas\InternationalTimeBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -20,9 +15,53 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('international_time');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('international_clocks')
+                    ->children()
+                        ->arrayNode('clock1')
+                            ->children()
+                                ->scalarNode('city')
+                                    ->defaultValue('')
+                                ->end()
+                                ->scalarNode('offset')
+                                    ->defaultValue('')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('clock2')
+                            ->children()
+                                ->scalarNode('city')
+                                    ->defaultValue('')
+                                ->end()
+                                ->scalarNode('offset')
+                                    ->defaultValue('')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('clock3')
+                            ->children()
+                                ->scalarNode('city')
+                                    ->defaultValue('')
+                                ->end()
+                                ->scalarNode('offset')
+                                    ->defaultValue('')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('clock4')
+                            ->children()
+                                ->scalarNode('city')
+                                    ->defaultValue('')
+                                ->end()
+                                ->scalarNode('offset')
+                                    ->defaultValue('')
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

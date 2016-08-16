@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>
+        {% block title %}International clocks{% endblock %}
+    </title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+        <style>
+            div {
+                text-align: center;
+            }
+            span {
+                font-weight: bold;
+            }
+            .container {
+                margin: 30px;
+            }
+        </style>
+    {% endblock %}
+</head>
+
+<body>
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+                <span id="clock1_time"></span>
+            </div>
+            <div class="col-md-1">
+                <span id="clock2_time"></span>
+            </div>
+            <div class="col-md-1">
+                <span id="clock3_time"></span>
+            </div>
+            <div class="col-md-1">
+                <span id="clock4_time"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <span id="clock1_city"></span>
+            </div>
+            <div class="col-md-1">
+                <span id="clock2_city"></span>
+            </div>
+            <div class="col-md-1">
+                <span id="clock3_city"></span>
+            </div>
+            <div class="col-md-1">
+                <span id="clock4_city"></span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/bundles/internationaltime/js/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        var clockDataUrl = "{{ path('international_time_get_clock_data_by_ajax') }}";
+
+        var getClockData = function (){
+            $.ajax({
+                url: clockDataUrl,
+                cache: false,
+                success: function (result) {
+
+                    if (result["status"] === true) {
+
+                        var clockData = result['clockData'];
+
+                        var i=1;
+                        clockData.forEach(function(clock){
+                            $("#clock" + i + '_time').html(clock['time']);
+                            $("#clock" + i + '_city').html(clock['city']);
+                            i++;
+                        });
+
+                    }
+                },
+                error: function () {
+                    console.log('Error');
+                }
+            });
+        };
+
+        $(document).ready(function(){
+            getClockData();
+            setInterval(getClockData, 1000);
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

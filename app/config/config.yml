@@ -77,3 +77,19 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+international_time:
+    international_clocks:
+        clock1:
+            city: Chicago
+            offset: -5:00
+        clock2:
+            city: London
+            offset: 1:00
+        clock3:
+            city: Sydney
+            offset: 10:00
+        clock4:
+            city: Kyiv
+            offset: 3:00
+
