@@ -1,0 +1,3 @@
+international_time_homepage:
+    path:     /
+    defaults: { _controller: InternationalTimeBundle:Default:index }

@@ -1,0 +1,3 @@
+international_time:
+    resource: "@InternationalTimeBundle/Resources/config/routing.yml"
+    prefix:   /
